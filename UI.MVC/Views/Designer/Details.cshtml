@@ -1,0 +1,38 @@
+﻿@model ClothingManager.BL.Domain.Designer
+
+@{
+    ViewBag.Title = "Designer";
+    Layout = "_Layout";
+}
+
+<h1>Designer Details</h1>
+
+<dl>
+    <dt>Name</dt><dd>@Model.Name</dd>
+    <dt>Age</dt><dd>@Model.Age</dd>
+    <dt>Nationality</dt><dd>@Model.Nationality</dd>
+</dl>
+
+<h2>Clothing Pieces</h2>
+<table class="table">
+    <tr>
+        <th>Color</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Manufacture Date</th>
+        <th>Contribution Order</th>
+        <th>Details</th>
+    </tr>
+    @foreach (ClothingManager.BL.Domain.ClothingPieceDesigner cpd in Model.ClothingPieces){
+        <tr>
+            <td>@cpd.ClothingPiece.Color</td>
+            <td>@cpd.ClothingPiece.ClothingType</td>
+            <td>@(string.Format("{0:0.00 EUR;;Free}",cpd.ClothingPiece.Price ?? 0.00))</td>
+            <td>@(string.Format("{0:dd/MM/yyyy}",cpd.ClothingPiece.ManufactureDate))</td>
+            <td>@cpd.ContributionOrder</td>
+            <td><a asp-area="" asp-controller="ClothingPiece" asp-action="Details" asp-route-clothingPieceId="@cpd.ClothingPiece.Id">Details</a></td>
+        </tr> 
+    }
+</table>
+
+

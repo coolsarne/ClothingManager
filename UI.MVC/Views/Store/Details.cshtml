@@ -1,0 +1,34 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Store";
+    Layout = "_Layout";
+}
+
+<h1>Store Details</h1>
+
+<div id="storeDetails">
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="city">City</label>
+            <input class="form-control" type="text" id="city" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="zipcode">Zipcode</label>
+            <input class="form-control" type="number" id="zipcode" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" id="name" required>
+        </div>
+    </div>
+    <p><button id="save" class="btn btn-light">Save Changes</button></p>
+</div>
+
+@section Scripts{
+    <script src="~/js/Store/details.js" defer></script>
+}

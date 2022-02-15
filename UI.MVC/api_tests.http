@@ -1,0 +1,36 @@
+﻿POST https://localhost:5001/api/stores HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "city":"Brussels",
+  "zipcode":1000,
+  "name":"Super Fashion"
+}
+
+###
+PUT https://localhost:5001/api/stores HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "city":"Paris",
+  "zipcode":75000,
+  "name":"Lorette & Linda",
+  "id": 1
+}
+
+
+###
+PUT https://localhost:5001/api/stores HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "city":"",
+  "zipcode":75000,
+  "name":"Lorette & Linda",
+  "id": 1
+}
+
+###

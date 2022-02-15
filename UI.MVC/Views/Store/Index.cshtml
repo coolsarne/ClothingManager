@@ -1,0 +1,19 @@
+﻿@using ClothingManager.BL.Domain
+@model dynamic
+
+@{
+    ViewBag.Title = "All Stores";
+    Layout = "_Layout";
+}
+
+<h1>All Stores</h1>
+
+<table class="table">
+    <thead id="storeTableHead"></thead>
+    <tbody id="storeTableBody"></tbody>
+</table>
+<p><button id="loadStores" class="btn btn-light">Refresh list</button></p>
+
+@section Scripts{
+    <script src="~/js/Store/index.js" defer></script>
+}

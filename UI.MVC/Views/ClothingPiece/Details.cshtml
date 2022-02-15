@@ -1,0 +1,46 @@
+﻿@model ClothingManager.BL.Domain.ClothingPiece
+
+@{
+    ViewBag.Title = "ClothingPiece";
+    Layout = "_Layout";
+}
+
+<h1>Clothing Piece Details</h1>
+
+<dl>
+    <dt>Color</dt><dd>@Model.Color</dd>
+    <dt>Type</dt><dd>@Model.ClothingType</dd>
+    <dt>Price</dt><dd>@(string.Format("{0:0.00 EUR;;Free!}",@Model.Price ?? 0.00))</dd>
+    <dt>Manufacture Date</dt><dd>@(string.Format("{0:dd/MM/yyyy}",@Model.ManufactureDate))</dd>
+    <dt>Store</dt><dd>@Model.Store.Name</dd>
+</dl>
+
+<h2>Designers</h2>
+<table class="table">
+    <thead id="designerTableHead"></thead>
+    <tbody id="designerTableBody"></tbody>
+</table>
+
+<h2>Add Designer</h2>
+<div id="designerForm">
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="designer">Designer</label>
+            <select class="form-control" name="designers" id="designer" required>
+                
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="contribution">Order of contribution</label>
+            <input class="form-control" type="number" id="contribution" required>
+        </div>
+    </div>
+    <p><button id="addDesigner" class="btn btn-light">Add designer to clothing piece</button></p>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/ClothingPiece/details.js" defer></script>
+}

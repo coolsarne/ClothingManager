@@ -1,0 +1,28 @@
+﻿@model ClothingManager.BL.Domain.Designer
+
+@{
+    ViewBag.Title = "Add Designer";
+    Layout = "_Layout";
+}
+
+<h1>Add Designer</h1>
+
+<form asp-controller="Designer" asp-action="Add" method="post">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Age">Age</label>
+        <input asp-for="Age" class="form-control">
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Nationality">Nationality</label>
+        <input asp-for="Nationality" class="form-control">
+        <span asp-validation-for="Nationality" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Save" class="btn btn-light">
+</form>

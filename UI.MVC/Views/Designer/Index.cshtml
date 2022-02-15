@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ClothingManager.BL.Domain.Designer>
+
+@{
+    ViewBag.Title = "All Designers";
+    Layout = "_Layout";
+}
+
+<h1>All Designers</h1>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Nationality</th>
+        <th>Details</th>
+    </tr>
+    @foreach (ClothingManager.BL.Domain.Designer designer in Model){
+        <tr>
+            <td>@designer.Name</td>
+            <td>@designer.Age</td>
+            <td>@designer.Nationality</td>
+            <td><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-designerId="@designer.Id">Details</a></td>
+        </tr>
+    }
+</table>
