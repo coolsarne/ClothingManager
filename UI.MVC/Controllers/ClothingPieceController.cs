@@ -16,5 +16,10 @@ namespace ClothingManager.UI.MVC.Controllers{
             ClothingPiece clothingPiece = _manager.GetClothingPieceWithStore(clothingPieceId);
             return View(clothingPiece);
         }
+
+        public IActionResult Overview(){
+            IEnumerable<ClothingPiece> clothingPieces = _manager.GetAllClothingPieces();
+            return View(clothingPieces);
+        }
     }
 }

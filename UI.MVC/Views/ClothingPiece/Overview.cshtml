@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ClothingManager.BL.Domain.ClothingPiece>
+
+@{
+    ViewBag.Title = "All Clothingpieces";
+    Layout = "_Layout";
+}
+
+<h1>All Clothingpieces</h1>
+
+<table class="table">
+    <tr>
+        <th>Color</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Manufacturedate</th>
+    </tr>
+    @foreach (ClothingManager.BL.Domain.ClothingPiece clothingPiece in Model){
+        <tr>
+            <td>@clothingPiece.Color</td>
+            <td>@clothingPiece.ClothingType</td>
+            <td>@(string.Format("{0:0.00 EUR;;Free!}", @clothingPiece.Price ?? 0.00))</td>
+            <td>@(string.Format("{0:dd/MM/yyyy}", @clothingPiece.ManufactureDate))</td>
+            @* <td>@(clothingPiece.Store.Name)</td> *@
+        </tr>
+    }
+</table>

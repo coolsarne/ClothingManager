@@ -6,6 +6,12 @@
     <title>@ViewData["Title"] - Designer Management</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
+<style>
+      .nav-item{
+        margin-left: 1em;
+        margin-right: 1em;
+      }  
+</style>
 </head>
 <body>
 <header>
@@ -26,6 +32,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Store" asp-action="Index">Stores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="ClothingPiece" asp-action="Overview">Clothingpieces</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
