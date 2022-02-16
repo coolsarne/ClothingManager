@@ -38,6 +38,12 @@ namespace ClothingManager.DAL.EF{
             ClothingPiece piece9 = new ClothingPiece(279.49, new DateTime(2021, 1, 7), "grey", ClothingType.Pants);
             ClothingPiece piece10 = new ClothingPiece(159.98, new DateTime(2019, 10, 12), "brown", ClothingType.Sweater);
 
+            ClothingPiece piece11 = new ClothingPiece(200.19, new DateTime(2021, 11, 12), "brown", ClothingType.Sweater);
+            ClothingPiece piece12 = new ClothingPiece(459.98, new DateTime(2022, 1, 4), "brown", ClothingType.Jacket);
+            ClothingPiece piece13 = new ClothingPiece(49.98, new DateTime(2021, 6, 26), "brown", ClothingType.Tshirt);
+            ClothingPiece piece14 = new ClothingPiece(219.49, new DateTime(2020, 12, 22), "brown", ClothingType.Shoes);
+            ClothingPiece piece15 = new ClothingPiece(859.98, new DateTime(2022, 2, 1), "brown", ClothingType.Sweater);
+
             Designer designer1 = new Designer("Raf Simons", 53, "Belgian");
             Designer designer2 = new Designer("Ralph Lauren", 82, "American");
             Designer designer3 = new Designer("Louis Vuitton", 167, "French");
@@ -102,6 +108,11 @@ namespace ClothingManager.DAL.EF{
             context.ClothingPieces.Add(piece8);
             context.ClothingPieces.Add(piece9);
             context.ClothingPieces.Add(piece10);
+            context.ClothingPieces.Add(piece11);
+            context.ClothingPieces.Add(piece12);
+            context.ClothingPieces.Add(piece13);
+            context.ClothingPieces.Add(piece14);
+            context.ClothingPieces.Add(piece15);
 
             context.Designers.Add(designer1);
             context.Designers.Add(designer2);
