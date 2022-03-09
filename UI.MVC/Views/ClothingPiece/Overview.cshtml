@@ -1,11 +1,60 @@
-﻿@model IEnumerable<ClothingManager.BL.Domain.ClothingPiece>
+﻿@using ClothingManager.UI.MVC.Utils
+@model IEnumerable<ClothingManager.BL.Domain.ClothingPiece>
 
 @{
     ViewBag.Title = "All Clothingpieces";
     Layout = "_Layout";
+
+    Pager pager = new Pager();
+
+    int pageNo = 0;
+
+    if (ViewBag.Pager is not null){
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 
 <h1>All Clothingpieces</h1>
+<div class="container">
+    @if (pager.TotalPages > 0){
+        <ul class="pagination justify-content-end">
+
+            @if (pager.CurrentPage > 1){
+                <li class="page-item">
+                    <a runat="server" id="prevbtn" class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+                    @{
+
+                    }
+                </li>
+            }
+            else{
+                <li class="page-item">
+                    <a class="page-link">Previous</a>
+                </li>
+            }
+
+
+
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++){
+                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@pge"> @pge </a>
+                </li>
+            }
+
+            @if (pager.CurrentPage < pager.TotalPages){
+                <li class="page-item">
+                    <a class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
+                </li>
+            }
+            else{
+                <li class="page-item">
+                    <a class="page-link">Next</a>
+                </li>
+            }
+        </ul>
+    }
+</div>
 
 <table class="table">
     <tr>
