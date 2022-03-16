@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using ClothingManager.BL.Domain;
 
 namespace ClothingManager.UI.MVC.Utils{
-    public class ClothingPiecePager{
+    public class Pager{
         public int TotalItems{ get; set; }
         public int CurrentPage{ get; set; }
         public int PageSize{ get; set; }
         public int TotalPages{ get; set; }
         public int StartPage{ get; set; }
         public int EndPage{ get; set; }
-        public IEnumerable<ClothingPiece> CurrentClothingPieces;
 
-        public ClothingPiecePager(int totalItems, int page, int pageSize, IEnumerable<ClothingPiece> clothingPieces){
+        public Pager(int totalItems, int page, int pageSize){
             int totalPages = (int) Math.Ceiling((decimal) totalItems / (decimal) pageSize);
             int currentPage = page;
             int startPage = currentPage - 5;
@@ -36,7 +35,6 @@ namespace ClothingManager.UI.MVC.Utils{
             TotalPages = totalPages;
             StartPage = startPage;
             EndPage = endPage;
-            CurrentClothingPieces = clothingPieces;
         }
     }
 }

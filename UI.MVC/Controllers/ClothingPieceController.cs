@@ -28,7 +28,7 @@ namespace ClothingManager.UI.MVC.Controllers{
 
             int recsCount = _manager.GetClothingPieceCount();
 
-            ClothingPiecePager pager = new ClothingPiecePager(recsCount, pg, pageSize, clothingPieces);
+            Pager pager = new Pager(recsCount, pg, pageSize);
 
             this.ViewBag.Pager = pager;
 

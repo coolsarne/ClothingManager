@@ -6,17 +6,17 @@
     Layout = "_Layout";
     int pageNo = 0;
 
-    ClothingPiecePager clothingPiecePager = ViewBag.Pager;
-    pageNo = clothingPiecePager.CurrentPage;
+    Pager pager = ViewBag.Pager;
+    pageNo = pager.CurrentPage;
 
 }
 
 <h1>All Clothingpieces</h1>
 <div class="container">
     <ul class="pagination justify-content-end">
-        @if (clothingPiecePager.CurrentPage > 1){
+        @if (pager.CurrentPage > 1){
             <li class="page-item">
-                <a runat="server" id="prevbtn" class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@(clothingPiecePager.CurrentPage - 1)">Previous</a>
+                <a runat="server" id="prevbtn" class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
                 @{
 
                 }
@@ -30,15 +30,15 @@
 
 
 
-        @for (var pge = clothingPiecePager.StartPage; pge <= clothingPiecePager.EndPage; pge++){
-            <li class="page-item @(pge == clothingPiecePager.CurrentPage ? "active" : "")">
+        @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++){
+            <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
                 <a class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@pge"> @pge </a>
             </li>
         }
 
-        @if (clothingPiecePager.CurrentPage < clothingPiecePager.TotalPages){
+        @if (pager.CurrentPage < pager.TotalPages){
             <li class="page-item">
-                <a class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@(clothingPiecePager.CurrentPage + 1)">Next</a>
+                <a class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
             </li>
         }
         else{
