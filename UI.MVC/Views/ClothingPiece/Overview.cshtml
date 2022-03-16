@@ -4,67 +4,63 @@
 @{
     ViewBag.Title = "All Clothingpieces";
     Layout = "_Layout";
-
-    Pager pager = new Pager();
-
     int pageNo = 0;
 
-    if (ViewBag.Pager is not null){
-        pager = ViewBag.Pager;
-        pageNo = pager.CurrentPage;
-    }
+    ClothingPiecePager clothingPiecePager = ViewBag.Pager;
+    pageNo = clothingPiecePager.CurrentPage;
+
 }
 
 <h1>All Clothingpieces</h1>
 <div class="container">
-    @if (pager.TotalPages > 0){
-        <ul class="pagination justify-content-end">
+    <ul class="pagination justify-content-end">
+        @if (clothingPiecePager.CurrentPage > 1){
+            <li class="page-item">
+                <a runat="server" id="prevbtn" class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@(clothingPiecePager.CurrentPage - 1)">Previous</a>
+                @{
 
-            @if (pager.CurrentPage > 1){
-                <li class="page-item">
-                    <a runat="server" id="prevbtn" class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
-                    @{
-
-                    }
-                </li>
-            }
-            else{
-                <li class="page-item">
-                    <a class="page-link">Previous</a>
-                </li>
-            }
+                }
+            </li>
+        }
+        else{
+            <li class="page-item">
+                <a class="page-link">Previous</a>
+            </li>
+        }
 
 
 
-            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++){
-                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@pge"> @pge </a>
-                </li>
-            }
+        @for (var pge = clothingPiecePager.StartPage; pge <= clothingPiecePager.EndPage; pge++){
+            <li class="page-item @(pge == clothingPiecePager.CurrentPage ? "active" : "")">
+                <a class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@pge"> @pge </a>
+            </li>
+        }
 
-            @if (pager.CurrentPage < pager.TotalPages){
-                <li class="page-item">
-                    <a class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
-                </li>
-            }
-            else{
-                <li class="page-item">
-                    <a class="page-link">Next</a>
-                </li>
-            }
-        </ul>
-    }
+        @if (clothingPiecePager.CurrentPage < clothingPiecePager.TotalPages){
+            <li class="page-item">
+                <a class="page-link" asp-controller="ClothingPiece" asp-action="Overview" asp-route-pg="@(clothingPiecePager.CurrentPage + 1)">Next</a>
+            </li>
+        }
+        else{
+            <li class="page-item">
+                <a class="page-link">Next</a>
+            </li>
+        }
+    </ul>
+
 </div>
 
 <table class="table">
     <tr>
+        <th>Id</th>
         <th>Color</th>
         <th>Type</th>
         <th>Price</th>
-        <th>Manufacturedate</th>
+        <th>Manufacture date</th>
     </tr>
     @foreach (ClothingManager.BL.Domain.ClothingPiece clothingPiece in Model){
         <tr>
+            <td>@clothingPiece.Id</td>
             <td>@clothingPiece.Color</td>
             <td>@clothingPiece.ClothingType</td>
             <td>@(string.Format("{0:0.00 EUR;;Free!}", @clothingPiece.Price ?? 0.00))</td>

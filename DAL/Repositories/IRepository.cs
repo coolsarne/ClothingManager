@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using ClothingManager.BL.Domain;
 
-namespace ClothingManager.DAL{ //TODO: alles wat ICollection returned een IEnumerable laten returnen
+namespace ClothingManager.DAL{
     
     public interface IRepository{
         public ClothingPiece ReadClothingPiece(int id);
         public ClothingPiece ReadClothingPieceWithStore(int id);
 
         public IEnumerable<ClothingPiece> ReadAllClothingPieces();
+        public IEnumerable<ClothingPiece> ReadClothingPiecesOfPage(int from, int to);
+        public int ReadClothingPiecesCount();
 
         public IEnumerable<ClothingPiece> ReadClothingPiecesOfTypeWithStore(ClothingType clothingType);
 

@@ -82,6 +82,14 @@ namespace ClothingManager.DAL{
             return _clothingPieces;
         }
 
+        public IEnumerable<ClothingPiece> ReadClothingPiecesOfPage(int @from, int to){
+            throw new NotImplementedException();
+        }
+
+        public int ReadClothingPiecesCount(){
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<ClothingPiece> ReadClothingPiecesOfTypeWithStore(ClothingType clothingType){
             ICollection<ClothingPiece> pieces = new List<ClothingPiece>();
             foreach (ClothingPiece clothingPiece in _clothingPieces){

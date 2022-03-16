@@ -27,6 +27,14 @@ namespace ClothingManager.DAL.EF{
             return _context.ClothingPieces;
         }
 
+        public IEnumerable<ClothingPiece> ReadClothingPiecesOfPage(int from, int to){
+            return _context.ClothingPieces.Skip(from).Take(to);
+        }
+
+        public int ReadClothingPiecesCount(){
+            return _context.ClothingPieces.Count();
+        }
+
         public IEnumerable<ClothingPiece> ReadClothingPiecesOfTypeWithStore(ClothingType clothingType){
             return _context.ClothingPieces.AsQueryable()
                 .Where(piece => piece.ClothingType.Equals(clothingType))

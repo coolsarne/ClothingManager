@@ -25,6 +25,16 @@ namespace ClothingManager.BL{
             return _repository.ReadAllClothingPieces();
         }
 
+        public IEnumerable<ClothingPiece> GetClothingPiecesOfPage(int currentPage, int pageSize){
+            int from = (currentPage * pageSize) - pageSize;
+            int to = pageSize;
+            return _repository.ReadClothingPiecesOfPage(from, to);
+        }
+
+        public int GetClothingPieceCount(){
+            return _repository.ReadClothingPiecesCount();
+        }
+
         public IEnumerable<ClothingPiece> GetClothingPiecesOfType(ClothingType clothingType){
             return _repository.ReadClothingPiecesOfTypeWithStore(clothingType);
         }

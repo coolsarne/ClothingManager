@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ClothingManager.BL;
 using ClothingManager.BL.Domain;
@@ -20,21 +21,22 @@ namespace ClothingManager.UI.MVC.Controllers{
         }
 
         public IActionResult Overview(int pg = 1){
-            IEnumerable<ClothingPiece> clothingPieces = _manager.GetAllClothingPieces().ToList();
-
-            const int pageSize = 5;
             if (pg < 1) pg = 1;
-            int recsCount = clothingPieces.Count();
+            const int pageSize = 5;
 
-            var pager = new Pager(recsCount, pg, pageSize);
+            IEnumerable<ClothingPiece> clothingPieces = _manager.GetClothingPiecesOfPage(pg, pageSize);
 
-            int recSkip = (pg - 1) * pageSize;
+            int recsCount = _manager.GetClothingPieceCount();
 
-            var data = clothingPieces.Skip(recSkip).Take(pager.PageSize).ToList();
+            ClothingPiecePager pager = new ClothingPiecePager(recsCount, pg, pageSize, clothingPieces);
 
             this.ViewBag.Pager = pager;
 
-            return View(data);
+            return View(clothingPieces);
         }
+
+        // public IActionResult EditClothingPiece() {
+        //     return View();
+        // }
     }
 }

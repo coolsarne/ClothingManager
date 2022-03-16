@@ -9,6 +9,8 @@ namespace ClothingManager.BL{
         public ClothingPiece GetClothingPieceWithStore(int id);
 
         public IEnumerable<ClothingPiece> GetAllClothingPieces();
+        public IEnumerable<ClothingPiece> GetClothingPiecesOfPage(int currentPage, int pageSize);
+        public int GetClothingPieceCount();
 
         public IEnumerable<ClothingPiece> GetClothingPiecesOfType(ClothingType clothingType);
 
