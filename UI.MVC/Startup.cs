@@ -26,6 +26,7 @@ namespace UI.MVC{
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IManager, Manager>();
             services.AddControllersWithViews();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +52,9 @@ namespace UI.MVC{
                     name: "default",
                     pattern: "{controller=Designer}/{action=Index}/{id?}");
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
     }
 }
