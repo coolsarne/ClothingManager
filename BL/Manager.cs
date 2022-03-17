@@ -112,8 +112,32 @@ namespace ClothingManager.BL{
             return store;
         }
 
-        public Store ChangeStoreWithPatch(int id, JsonPatchDocument<Store> patchDocument) {
-            return _repository.UpdateStoreWithPatch(id, patchDocument);
+        public Store ChangeStoreWithPatch(string city, int? zipcode, string name, int id) {
+
+            Store storeToUpdate = _repository.ReadStore(id);
+
+            JsonPatchDocument<Store> patchEntity = new JsonPatchDocument<Store>();
+
+            if (city is null) {
+                patchEntity.Remove(s => s.City);
+            } else if (city != storeToUpdate.City) {
+                patchEntity.Replace(s => s.City, city);
+            }
+
+            if (name is null) {
+                patchEntity.Remove(s => s.Name);
+            } else if (name != storeToUpdate.Name) {
+                patchEntity.Replace(s => s.Name, name);
+            }
+
+            if (zipcode is null) {
+                patchEntity.Remove(s => s.Zipcode);
+            } else if (zipcode != storeToUpdate.Zipcode) {
+                patchEntity.Replace(s => s.Zipcode, zipcode);
+            }
+
+
+            return _repository.UpdateStoreWithPatch(id, patchEntity);
         }
 
         public IEnumerable<ClothingPiece> GetClothingPiecesOfDesigner(int designerId){

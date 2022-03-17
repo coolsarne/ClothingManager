@@ -36,7 +36,7 @@ namespace ClothingManager.BL{
         public IEnumerable<Store> GetAllStoresWithClothingPieces();
         public Store AddStore(string city, int zipcode, string name);
         public Store ChangeStore(string city, int zipcode, string name, int id);
-        public Store ChangeStoreWithPatch(int id, JsonPatchDocument<Store> patchDocument);
+        public Store ChangeStoreWithPatch(string city, int? zipcode, string name, int id);
 
         public IEnumerable<ClothingPiece> GetClothingPiecesOfDesigner(int designerId);
         public IEnumerable<Designer> GetDesignersOfClothingPiece(int clothingPieceId);
