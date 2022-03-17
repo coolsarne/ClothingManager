@@ -31,11 +31,20 @@ const storeName = document.getElementById("name").value;
 const storeZipCode = document.getElementById("zipcode").value;
 
 function saveChanges() {
-    const newCity = document.getElementById("city").value;
-    const newZipcode = document.getElementById("zipcode").value;
-    const newName = document.getElementById("name").value;
+    var newCity = document.getElementById("city").value;
+    var newZipcode = document.getElementById("zipcode").value;
+    var newName = document.getElementById("name").value;
+
+    if (newCity === "") {
+        newCity = null;
+    }
+    if (newZipcode === "") {
+        newZipcode = null;
+    }
+    if (newName === "") {
+        newName = null;
+    }
     const updatedStoreDTO = { city: newCity, zipcode: newZipcode, name: newName, id: storeId };
-    //TODO only put changed items in dto
 
     fetch(`/api/stores`, {
             method: "PATCH",

@@ -57,17 +57,33 @@ namespace ClothingManager.UI.MVC.Controllers.Api{
         }
 
         [HttpPatch]
-        public IActionResult Patch([FromBody] StoreDTO dto) {
+        public IActionResult Patch([FromBody] StorePatchDTO dto) {
 
             if (!ModelState.IsValid) {
                 return BadRequest(ModelState);
             }
 
+            Store storeToUpdate = _mgr.GetStore(dto.Id);
+
             JsonPatchDocument<Store> patchEntity = new JsonPatchDocument<Store>();
-            patchEntity.Replace(s => s.Id, dto.Id);
-            patchEntity.Replace(s => s.City, dto.City);
-            patchEntity.Replace(s => s.Name, dto.Name);
-            patchEntity.Replace(s => s.Zipcode, dto.Zipcode);
+
+            if (dto.City is null){
+                patchEntity.Remove(s => s.City);
+            } else if (dto.City != storeToUpdate.City){
+                patchEntity.Replace(s => s.City, dto.City);
+            }
+
+            if (dto.Name is null) {
+                patchEntity.Remove(s => s.Name);
+            } else if (dto.Name != storeToUpdate.Name) {
+                patchEntity.Replace(s => s.Name, dto.Name);
+            }
+
+            if (dto.Zipcode is null) {
+                patchEntity.Remove(s => s.Zipcode);
+            } else if (dto.Zipcode != storeToUpdate.Zipcode) {
+                patchEntity.Replace(s => s.Zipcode, dto.Zipcode);
+            }
 
             Store updatedStore = _mgr.ChangeStoreWithPatch(dto.Id, patchEntity);
 

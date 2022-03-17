@@ -144,7 +144,10 @@ namespace ClothingManager.DAL.EF{
                 throw new UnauthorizedAccessException();
             }
 
-            // JsonConvert.DeserializeObject<JsonPatchDocument>(patchDocument); //TODO print jsonpatchdocument
+            // Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(patchDocument));
+            
+            // Method above is useful to view the content of the JsonPatchDocument
+            // This way we can check if the right properties are being Replaced, Removed,...
 
             patchDocument.ApplyTo(store);
 

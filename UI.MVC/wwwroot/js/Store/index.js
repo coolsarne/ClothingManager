@@ -16,7 +16,7 @@ function loadStores() {
 }
 
 function showStores(stores) {
-    const table = document.getElementById('storeTableHead')
+    const table = document.getElementById('storeTableHead');
     table.innerHTML = 
         `<tr>
                 <th>City</th>
@@ -29,8 +29,11 @@ function showStores(stores) {
     stores.forEach(store => addStore(store));
 }
 
-function addStore(store){
-    const table = document.getElementById('storeTableBody')
+function addStore(store) {
+    if (store.city === null) store.city = "[UNKNOWN]";
+    if (store.name === null) store.name = "[UNKNOWN]";
+    if (store.zipcode === null || store.zipcode === 0) store.zipcode = "[UNKNOWN]";
+    const table = document.getElementById('storeTableBody');
     table.innerHTML += `
         <tr>
             <td>${store.city}</td>
