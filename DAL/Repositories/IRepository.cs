@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using ClothingManager.BL.Domain;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ClothingManager.DAL{
     
     public interface IRepository{
         public ClothingPiece ReadClothingPiece(int id);
         public ClothingPiece ReadClothingPieceWithStore(int id);
-
         public IEnumerable<ClothingPiece> ReadAllClothingPieces();
         public IEnumerable<ClothingPiece> ReadClothingPiecesOfPage(int from, int to);
         public int ReadClothingPiecesCount();
@@ -34,6 +34,7 @@ namespace ClothingManager.DAL{
         public Store ReadStoreWithClothingPieces(int id);
         public IEnumerable<Store> ReadAllStoresWithClothingPieces();
         public Store UpdateStore(Store store);
+        public Store UpdateStoreWithPatch(int id, JsonPatchDocument<Store> patchDocument);
         public Store CreateStore(Store store);
 
         public IEnumerable<ClothingPiece> ReadAllClothingPiecesWithDesigners();

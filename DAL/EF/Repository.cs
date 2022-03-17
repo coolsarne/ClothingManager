@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ClothingManager.BL.Domain;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace ClothingManager.DAL.EF{
     public class Repository : IRepository{
@@ -132,6 +134,23 @@ namespace ClothingManager.DAL.EF{
 
             _context.SaveChanges();
             return storeFromRepo;
+        }
+
+        public Store UpdateStoreWithPatch(int id, JsonPatchDocument<Store> patchDocument) {
+            Store store = ReadStore(id);
+            var unEditablePaths = new List<string> { "/id" };
+
+            if (patchDocument.Operations.Any(operation => unEditablePaths.Contains(operation.path))) {
+                throw new UnauthorizedAccessException();
+            }
+
+            // JsonConvert.DeserializeObject<JsonPatchDocument>(patchDocument); //TODO print jsonpatchdocument
+
+            patchDocument.ApplyTo(store);
+
+            _context.SaveChanges();
+
+            return store;
         }
 
         public Store CreateStore(Store store){

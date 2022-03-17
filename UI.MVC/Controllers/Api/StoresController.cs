@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Sockets;
 using ClothingManager.BL;
 using ClothingManager.BL.Domain;
 using ClothingManager.UI.MVC.Models.Dto;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClothingManager.UI.MVC.Controllers.Api{
@@ -52,6 +54,25 @@ namespace ClothingManager.UI.MVC.Controllers.Api{
 
             ClothingManager.BL.Domain.Store store = _mgr.ChangeStore(dto.City, dto.Zipcode, dto.Name, dto.Id);
             return NoContent();
+        }
+
+        [HttpPatch]
+        public IActionResult Patch([FromBody] StoreDTO dto) {
+
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
+            }
+
+            JsonPatchDocument<Store> patchEntity = new JsonPatchDocument<Store>();
+            patchEntity.Replace(s => s.Id, dto.Id);
+            patchEntity.Replace(s => s.City, dto.City);
+            patchEntity.Replace(s => s.Name, dto.Name);
+            patchEntity.Replace(s => s.Zipcode, dto.Zipcode);
+
+            Store updatedStore = _mgr.ChangeStoreWithPatch(dto.Id, patchEntity);
+
+
+            return Ok(updatedStore);
         }
     }
 }

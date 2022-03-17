@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using ClothingManager.BL.Domain;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ClothingManager.BL{
     public interface IManager{
@@ -35,6 +36,7 @@ namespace ClothingManager.BL{
         public IEnumerable<Store> GetAllStoresWithClothingPieces();
         public Store AddStore(string city, int zipcode, string name);
         public Store ChangeStore(string city, int zipcode, string name, int id);
+        public Store ChangeStoreWithPatch(int id, JsonPatchDocument<Store> patchDocument);
 
         public IEnumerable<ClothingPiece> GetClothingPiecesOfDesigner(int designerId);
         public IEnumerable<Designer> GetDesignersOfClothingPiece(int clothingPieceId);

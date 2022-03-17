@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using ClothingManager.DAL;
 using ClothingManager.BL.Domain;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ClothingManager.BL{
     public class Manager : IManager{
@@ -109,6 +110,10 @@ namespace ClothingManager.BL{
             store.ClothingPieces = _repository.ReadStore(id).ClothingPieces;
             _repository.UpdateStore(store);
             return store;
+        }
+
+        public Store ChangeStoreWithPatch(int id, JsonPatchDocument<Store> patchDocument) {
+            return _repository.UpdateStoreWithPatch(id, patchDocument);
         }
 
         public IEnumerable<ClothingPiece> GetClothingPiecesOfDesigner(int designerId){

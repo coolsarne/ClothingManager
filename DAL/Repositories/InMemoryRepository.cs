@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ClothingManager.BL.Domain;
 using ClothingManager.DAL.EF;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ClothingManager.DAL{
     public class InMemoryRepository : IRepository{
@@ -75,6 +76,10 @@ namespace ClothingManager.DAL{
         }
 
         public ClothingPiece ReadClothingPieceWithStore(int id){
+            throw new NotImplementedException();
+        }
+
+        public Store UpdateStoreWithPatch(int id, JsonPatchDocument patchDocument){
             throw new NotImplementedException();
         }
 
@@ -175,6 +180,10 @@ namespace ClothingManager.DAL{
         }
 
         public Store UpdateStore(Store store){
+            throw new NotImplementedException();
+        }
+
+        public Store UpdateStoreWithPatch(int id, JsonPatchDocument<Store> patchDocument){
             throw new NotImplementedException();
         }
 

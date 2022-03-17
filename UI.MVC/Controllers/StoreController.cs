@@ -9,5 +9,9 @@ namespace ClothingManager.UI.MVC.Controllers.Api{
         public IActionResult Details(){
             return View();
         }
+
+        public IActionResult Patch(){
+            return View();
+        }
     }
 }

@@ -23,6 +23,7 @@ function showStores(stores) {
                 <th>Zipcode</th>
                 <th>Name</th>
                 <th>Details</th>
+                <th>Patch</th>
             </tr>`;
     document.getElementById('storeTableBody').innerHTML = "";
     stores.forEach(store => addStore(store));
@@ -36,6 +37,7 @@ function addStore(store){
             <td>${store.zipcode}</td>
             <td>${store.name}</td>
             <td><a href="/Store/Details?storeId=${store.id}">Details</a></td>
+            <td><a href="/Store/Patch?storeId=${store.id}">Patch</td>
         </tr>
     `
 }
