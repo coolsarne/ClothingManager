@@ -1,5 +1,5 @@
 query allDesigners{
-  designers {
+  designers{
     id
     name
     age
