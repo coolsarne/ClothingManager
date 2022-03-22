@@ -13,9 +13,11 @@ public class Query
         return repository.ReadDesigner(id);
     }
 
-    public List<Designer> GetDesigners([Service] IRepository repository)
+    
+    public List<Designer> GetDesigners([Service] IRepository repository,string nationality = null)
     {
-        return repository.ReadAllDesigners().ToList();
+        if(string.IsNullOrWhiteSpace(nationality)) return repository.ReadAllDesigners().ToList();
+        return repository.FilterByNationality(nationality);
     }
 
     public ClothingPiece GetClothingPiece([Service] IRepository repository, int id)
@@ -27,4 +29,5 @@ public class Query
     {
         return repository.ReadAllClothingPieces().ToList();
     }
+    
 }

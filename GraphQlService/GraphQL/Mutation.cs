@@ -19,8 +19,7 @@ public class Mutation
         });
         return createdDesigner;
     }
-
-    public ClothingPiece CreateClothingPiece([Service] IRepository repository, double? price, DateTime manufactureDate,
+public ClothingPiece CreateClothingPiece([Service] IRepository repository, double? price, DateTime manufactureDate,
         string color, ClothingType clothingType)
     {
         var createdClothingPiece = repository.CreateClothingPiece(new ClothingPiece()
@@ -33,6 +32,7 @@ public class Mutation
         });
         return createdClothingPiece;
     }
+    
 
     public Designer RemoveDesigner([Service] IRepository repository, Designer designer)
     {
@@ -42,10 +42,5 @@ public class Mutation
     public ClothingPiece RemoveClothingPiece([Service] IRepository repository, ClothingPiece clothingPiece)
     {
         return repository.DeleteClothingPiece(clothingPiece);
-    }
-
-    public List<Designer> FilterByNationality([Service] IRepository repository, string nationality)
-    {
-        return repository.FilterByNationality(nationality);
     }
 }
