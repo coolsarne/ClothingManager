@@ -1,0 +1,93 @@
+﻿schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  designer(id: Int!): Designer
+  designers: [Designer]
+  clothingPiece(id: Int!): ClothingPiece
+  clothingPieces: [ClothingPiece]
+}
+
+type Mutation {
+  createDesigner(name: String age: Int! nationality: String): Designer
+  createClothingPiece(price: Float manufactureDate: DateTime! color: String clothingType: ClothingType!): ClothingPiece
+  removeDesigner(designer: DesignerInput): Designer
+  removeClothingPiece(clothingPiece: ClothingPieceInput): ClothingPiece
+}
+
+type ClothingPiece {
+  price: Float
+  manufactureDate: DateTime!
+  color: String!
+  clothingType: ClothingType!
+  store: Store
+  designers: [ClothingPieceDesigner]
+  id: Int!
+}
+
+type Designer {
+  name: String!
+  age: Int!
+  nationality: String!
+  clothingPieces: [ClothingPieceDesigner]
+  id: Int!
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+enum ClothingType {
+  TSHIRT
+  SWEATER
+  PANTS
+  SHOES
+  JACKET
+}
+
+input DesignerInput {
+  name: String!
+  age: Int!
+  nationality: String!
+  clothingPieces: [ClothingPieceDesignerInput]
+  id: Int!
+}
+
+input ClothingPieceInput {
+  price: Float
+  manufactureDate: DateTime!
+  color: String!
+  clothingType: ClothingType!
+  store: StoreInput
+  designers: [ClothingPieceDesignerInput]
+  id: Int!
+}
+
+input StoreInput {
+  city: String
+  zipcode: Int!
+  name: String
+  clothingPieces: [ClothingPieceInput]
+  id: Int!
+}
+
+input ClothingPieceDesignerInput {
+  clothingPiece: ClothingPieceInput!
+  designer: DesignerInput!
+  contributionOrder: Int!
+}
+
+type ClothingPieceDesigner {
+  clothingPiece: ClothingPiece!
+  designer: Designer!
+  contributionOrder: Int!
+}
+
+type Store {
+  city: String
+  zipcode: Int!
+  name: String
+  clothingPieces: [ClothingPiece]
+  id: Int!
+}

@@ -1,0 +1,8 @@
+query allDesigners{
+  designers {
+    id
+    name
+    age
+    nationality
+  }
+}

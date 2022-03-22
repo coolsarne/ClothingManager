@@ -144,10 +144,7 @@ namespace ClothingManager.DAL.EF{
                 throw new UnauthorizedAccessException();
             }
 
-            // Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(patchDocument));
-            
-            // Method above is useful to view the content of the JsonPatchDocument
-            // This way we can check if the right properties are being Replaced, Removed,...
+            // JsonConvert.DeserializeObject<JsonPatchDocument>(patchDocument); //TODO print jsonpatchdocument
 
             patchDocument.ApplyTo(store);
 
@@ -213,6 +210,29 @@ namespace ClothingManager.DAL.EF{
                     .Where(cpd => cpd.ClothingPiece.Id == clothingPieceId)
                     .First(cpd => cpd.Designer.Id == designerId));
             _context.SaveChanges();
+        }
+
+        public Designer DeleteDesigner(Designer designer)
+        {
+            var entity = _context.Designers.Remove(designer).Entity;
+            _context.SaveChanges();
+            return entity;
+        }
+
+        public List<Designer> FilterByNationality(string nationality)
+        {
+            if (string.IsNullOrEmpty(nationality))
+            {
+                return new List<Designer>();
+            }
+            return _context.Designers.Where(x => x.Nationality.ToLower() == nationality.ToLower()).ToList();
+        }
+
+        public ClothingPiece DeleteClothingPiece(ClothingPiece clothingPiece)
+        {
+            var entity = _context.ClothingPieces.Remove(clothingPiece).Entity;
+            _context.SaveChanges();
+            return entity;
         }
     }
 }

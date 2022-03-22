@@ -1,40 +1,51 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using System.Net.Http;
 using ClothingManager.BL;
 using ClothingManager.DAL;
 using ClothingManager.DAL.EF;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using UI.MVC.GraphQL;
 
-namespace UI.MVC{
-    public class Startup{
-        public Startup(IConfiguration configuration){
+namespace ClothingManager.UI.MVC
+{
+    public class Startup
+    {
+        private readonly string AllowedOrigin = "allowedOrigin";
+        
+        public Startup(IConfiguration configuration)
+        {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration{ get; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services){
+        public void ConfigureServices(IServiceCollection services)
+        {
             services.AddDbContext<ClothingManagerDbContext>(ServiceLifetime.Scoped);
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IManager, Manager>();
             services.AddControllersWithViews();
-            services.AddSwaggerGen();
+            services.AddGraphqlClient();
+
+            services.AddHttpClient("rest", x => x.BaseAddress = new Uri("https://localhost:5002/"));
+            services.AddHttpClient("GraphqlClient")
+                .ConfigureHttpClient(x => x.BaseAddress = new Uri("https://localhost:5002/graphql"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env){
-            if (env.IsDevelopment()){
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
             }
-            else{
+            else
+            {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
@@ -42,19 +53,20 @@ namespace UI.MVC{
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
+                app.UseCors(AllowedOrigin);
+                app.UseWebSockets();
+                app.UseRouting();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Designer}/{action=Index}/{id?}");
             });
 
-            app.UseSwagger();
-            app.UseSwaggerUI();
+            //app.UseSwagger();
+            //app.UseSwaggerUI();
         }
     }
 }

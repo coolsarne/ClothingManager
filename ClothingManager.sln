@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.CA", "UI.CA\UI.CA.csproj", "{AA88EC34-648B-43BE-9DD3-A6C5406987E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{B303E1DC-8BB8-4884-B274-9234D8661B37}"
@@ -9,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{CED0AFA0-4444-443E-A45B-763DBFCE165A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.MVC", "UI.MVC\UI.MVC.csproj", "{2AAC7D24-FE87-4B70-8196-873E178D19F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQlService", "GraphQlService\GraphQlService.csproj", "{DDB72A47-DE6D-46AC-B58F-A9AD13740E72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +39,9 @@ Global
 		{2AAC7D24-FE87-4B70-8196-873E178D19F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AAC7D24-FE87-4B70-8196-873E178D19F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AAC7D24-FE87-4B70-8196-873E178D19F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDB72A47-DE6D-46AC-B58F-A9AD13740E72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB72A47-DE6D-46AC-B58F-A9AD13740E72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB72A47-DE6D-46AC-B58F-A9AD13740E72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB72A47-DE6D-46AC-B58F-A9AD13740E72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

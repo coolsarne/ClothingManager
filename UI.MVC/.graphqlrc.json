@@ -1,0 +1,12 @@
+{
+  "schema": "schema.graphql",
+  "documents": "**/*.graphql",
+  "extensions": {
+    "strawberryShake": {
+      "name": "GraphqlClient",
+      "namespace": "UI.MVC.GraphQL",
+      "url": "https://localhost:5002/graphql/",
+      "dependencyInjection": true
+    }
+  }
+}

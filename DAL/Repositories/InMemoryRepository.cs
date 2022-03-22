@@ -218,5 +218,20 @@ namespace ClothingManager.DAL{
         public void DeleteClothingPieceDesigner(int clothingPieceId, int authorId){
             throw new NotImplementedException();
         }
+
+        public ClothingPiece DeleteClothingPiece(ClothingPiece clothingPiece)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Designer DeleteDesigner(Designer designer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Designer> FilterByNationality(string nationality)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
