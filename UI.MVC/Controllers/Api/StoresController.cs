@@ -62,13 +62,19 @@ namespace ClothingManager.UI.MVC.Controllers.Api{
             if (!ModelState.IsValid) {
                 return BadRequest(ModelState);
             }
-
-
-
+            
             Store updatedStore = _mgr.ChangeStoreWithPatch(dto.City, dto.Zipcode, dto.Name, dto.Id);
-
-
+            
             return Ok(updatedStore);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete([FromBody] int storeId){
+            Store store = _mgr.GetStore(storeId);
+            if (store is null) return NotFound();
+            
+            _mgr.RemoveStore(storeId);
+            return Ok(store);
         }
     }
 }

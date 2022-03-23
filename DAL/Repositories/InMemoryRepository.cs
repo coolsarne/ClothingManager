@@ -218,5 +218,9 @@ namespace ClothingManager.DAL{
         public void DeleteClothingPieceDesigner(int clothingPieceId, int authorId){
             throw new NotImplementedException();
         }
+
+        public void DeleteStore(int storeId){
+            throw new NotImplementedException();
+        }
     }
 }

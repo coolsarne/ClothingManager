@@ -28,8 +28,7 @@ namespace ClothingManager.BL{
 
         public IEnumerable<ClothingPiece> GetClothingPiecesOfPage(int currentPage, int pageSize){
             int from = (currentPage * pageSize) - pageSize;
-            int to = pageSize;
-            return _repository.ReadClothingPiecesOfPage(from, to);
+            return _repository.ReadClothingPiecesOfPage(from, pageSize);
         }
 
         public int GetClothingPieceCount(){
@@ -113,30 +112,32 @@ namespace ClothingManager.BL{
         }
 
         public Store ChangeStoreWithPatch(string city, int? zipcode, string name, int id) {
-
             Store storeToUpdate = _repository.ReadStore(id);
-
             JsonPatchDocument<Store> patchEntity = new JsonPatchDocument<Store>();
 
             if (city is null) {
                 patchEntity.Remove(s => s.City);
+            } else if (string.IsNullOrEmpty(storeToUpdate.City)) {
+                patchEntity.Add(s => s.City, city);
             } else if (city != storeToUpdate.City) {
                 patchEntity.Replace(s => s.City, city);
-            }
+            } 
 
             if (name is null) {
                 patchEntity.Remove(s => s.Name);
+            } else if (string.IsNullOrEmpty(storeToUpdate.Name)) {
+                patchEntity.Add(s => s.Name, name);
             } else if (name != storeToUpdate.Name) {
                 patchEntity.Replace(s => s.Name, name);
             }
-
+            
             if (zipcode is null) {
                 patchEntity.Remove(s => s.Zipcode);
+            } else if (storeToUpdate.Zipcode == 0) {
+                patchEntity.Add(s => s.Zipcode, zipcode);
             } else if (zipcode != storeToUpdate.Zipcode) {
                 patchEntity.Replace(s => s.Zipcode, zipcode);
             }
-
-
             return _repository.UpdateStoreWithPatch(id, patchEntity);
         }
 
@@ -170,6 +171,10 @@ namespace ClothingManager.BL{
 
         public void RemoveClothingPieceDesigner(int clothingPieceId, int designerId){
             _repository.DeleteClothingPieceDesigner(clothingPieceId, designerId);
+        }
+
+        public void RemoveStore(int storeId){
+            _repository.DeleteStore(storeId);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿const urlParams = new URLSearchParams(window.location.search);
 const storeId = parseInt(urlParams.get("storeId"));
 const loadResponseButton = document.getElementById('save');
+const deleteStoreButton = document.getElementById('delete');
 loadResponseButton.addEventListener("click", () => saveChanges())
+deleteStoreButton.addEventListener("click", () => deleteStore())
 
 loadStore();
 
@@ -34,6 +36,26 @@ function saveChanges() {
     fetch(`/api/stores`, {
         method: "PUT",
         body: JSON.stringify(updatedStoreDTO),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(function (response) {
+            if (response.ok) {
+                window.location.href = "/Store"
+            } else {
+                alert("Invalid input detected");
+            }
+        })
+        .catch(function (error) {
+
+        });
+}
+
+function deleteStore() {
+    fetch(`/api/stores`, {
+        method: "DELETE",
+        body: JSON.stringify(storeId),
         headers: {
             "Content-Type": "application/json"
         }

@@ -45,5 +45,7 @@ namespace ClothingManager.DAL{
 
         public ClothingPieceDesigner CreateClothingPieceDesigner(ClothingPieceDesigner clothingPieceDesigner);
         public void DeleteClothingPieceDesigner(int clothingPieceId, int designerId);
+
+        public void DeleteStore(int storeId);
     }
 }

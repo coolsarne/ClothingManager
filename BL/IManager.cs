@@ -46,5 +46,6 @@ namespace ClothingManager.BL{
         public ClothingPieceDesigner AddClothingPieceDesigner(ClothingPiece clothingPiece, Designer designer, int contributionOrder);
         public void RemoveClothingPieceDesigner(int clothingPieceId, int designerId);
 
+        public void RemoveStore(int storeId);
     }
 }
