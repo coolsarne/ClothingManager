@@ -7,60 +7,73 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-namespace ClothingManager.DAL.EF{
-    public class Repository : IRepository{
+namespace ClothingManager.DAL.EF
+{
+    public class Repository : IRepository
+    {
         private readonly ClothingManagerDbContext _context;
 
-        public Repository(ClothingManagerDbContext context){
+        public Repository(ClothingManagerDbContext context)
+        {
             _context = context;
         }
 
-        public ClothingPiece ReadClothingPiece(int id){
+        public ClothingPiece ReadClothingPiece(int id)
+        {
             return _context.ClothingPieces.Find(id);
         }
 
-        public ClothingPiece ReadClothingPieceWithStore(int id){
+        public ClothingPiece ReadClothingPieceWithStore(int id)
+        {
             return _context.ClothingPieces
                 .Include(cp => cp.Store)
                 .Single(cp => cp.Id == id);
         }
 
-        public IEnumerable<ClothingPiece> ReadAllClothingPieces(){
+        public IEnumerable<ClothingPiece> ReadAllClothingPieces()
+        {
             return _context.ClothingPieces;
         }
 
-        public IEnumerable<ClothingPiece> ReadClothingPiecesOfPage(int from, int to){
+        public IEnumerable<ClothingPiece> ReadClothingPiecesOfPage(int from, int to)
+        {
             return _context.ClothingPieces.Skip(from).Take(to);
         }
 
-        public int ReadClothingPiecesCount(){
+        public int ReadClothingPiecesCount()
+        {
             return _context.ClothingPieces.Count();
         }
 
-        public IEnumerable<ClothingPiece> ReadClothingPiecesOfTypeWithStore(ClothingType clothingType){
+        public IEnumerable<ClothingPiece> ReadClothingPiecesOfTypeWithStore(ClothingType clothingType)
+        {
             return _context.ClothingPieces.AsQueryable()
                 .Where(piece => piece.ClothingType.Equals(clothingType))
                 .Include(cp => cp.Store);
         }
 
-        public ClothingPiece CreateClothingPiece(ClothingPiece clothingPiece){
+        public ClothingPiece CreateClothingPiece(ClothingPiece clothingPiece)
+        {
             _context.ClothingPieces.Add(clothingPiece);
             _context.SaveChanges();
             return clothingPiece;
         }
 
-        public Designer ReadDesigner(int id){
+        public Designer ReadDesigner(int id)
+        {
             return _context.Designers.Find(id);
         }
 
-        public Designer ReadDesignerWithClothingPieces(int id){
+        public Designer ReadDesignerWithClothingPieces(int id)
+        {
             return _context.Designers
                 .Include(d => d.ClothingPieces)
                 .ThenInclude(cpd => cpd.ClothingPiece)
                 .Single(d => d.Id == id);
         }
 
-        public Designer ReadDesignerWithClothingPiecesAndStore(int id){
+        public Designer ReadDesignerWithClothingPiecesAndStore(int id)
+        {
             return _context.Designers
                 .Include(d => d.ClothingPieces)
                 .ThenInclude(cpd => cpd.ClothingPiece.Store)
@@ -68,64 +81,77 @@ namespace ClothingManager.DAL.EF{
                 .Single(d => d.Id == id);
         }
 
-        public IEnumerable<Designer> ReadAllDesigners(){
+        public IEnumerable<Designer> ReadAllDesigners()
+        {
             return _context.Designers;
         }
 
-        public IEnumerable<Designer> ReadDesignerByNameAndAgeWithClothingPiecesAndStore(string name, int? age){
+        public IEnumerable<Designer> ReadDesignerByNameAndAgeWithClothingPiecesAndStore(string name, int? age)
+        {
             IQueryable<Designer> results = ReadAllDesignersWithClothingPiecesAndStore().AsQueryable();
-            if (!String.IsNullOrEmpty(name)){
+            if (!String.IsNullOrEmpty(name))
+            {
                 results = results.AsQueryable().Where(d => d.Name.ToLower().Contains(name.ToLower()));
             }
 
-            if (age != null){
+            if (age != null)
+            {
                 results = results.AsQueryable().Where(d => d.Age == age);
             }
 
             return results;
         }
 
-        public Designer CreateDesigner(Designer designer){
+        public Designer CreateDesigner(Designer designer)
+        {
             designer.Id = _context.Designers.Count() + 1;
             _context.Designers.Add(designer);
             _context.SaveChanges();
             return designer;
         }
 
-        public IEnumerable<ClothingPiece> ReadAllClothingPiecesWithStore(){
+        public IEnumerable<ClothingPiece> ReadAllClothingPiecesWithStore()
+        {
             return _context.ClothingPieces.Include(s => s.Store);
         }
 
-        public IEnumerable<Designer> ReadAllDesignersWithClothingPiecesAndStore(){
+        public IEnumerable<Designer> ReadAllDesignersWithClothingPiecesAndStore()
+        {
             return _context.Designers
                 .Include(d => d.ClothingPieces)
                 .ThenInclude(cpd => cpd.ClothingPiece.Store)
                 .Include(d => d.ClothingPieces);
         }
 
-        public IEnumerable<Store> ReadAllStores(){
+        public IEnumerable<Store> ReadAllStores()
+        {
             return _context.Stores;
         }
 
-        public Store ReadStore(int id){
+        public Store ReadStore(int id)
+        {
             return _context.Stores.Find(id);
         }
 
-        public Store ReadStoreWithClothingPieces(int id){
+        public Store ReadStoreWithClothingPieces(int id)
+        {
             return _context.Stores
                 .Include(s => s.ClothingPieces)
                 .Single(store => store.Id == id);
         }
 
-        public IEnumerable<Store> ReadAllStoresWithClothingPieces(){
+        public IEnumerable<Store> ReadAllStoresWithClothingPieces()
+        {
             return _context.Stores
                 .Include(s => s.ClothingPieces);
         }
 
 
-        public Store UpdateStore(Store store){
+        public Store UpdateStore(Store store)
+        {
             var storeFromRepo = ReadStore(store.Id);
-            if (storeFromRepo != null){
+            if (storeFromRepo != null)
+            {
                 storeFromRepo.City = store.City;
                 storeFromRepo.Zipcode = store.Zipcode;
                 storeFromRepo.Name = store.Name;
@@ -136,11 +162,13 @@ namespace ClothingManager.DAL.EF{
             return storeFromRepo;
         }
 
-        public Store UpdateStoreWithPatch(int id, JsonPatchDocument<Store> patchDocument) {
+        public Store UpdateStoreWithPatch(int id, JsonPatchDocument<Store> patchDocument)
+        {
             Store store = ReadStore(id);
-            var unEditablePaths = new List<string> { "/id" };
+            var unEditablePaths = new List<string> {"/id"};
 
-            if (patchDocument.Operations.Any(operation => unEditablePaths.Contains(operation.path))) {
+            if (patchDocument.Operations.Any(operation => unEditablePaths.Contains(operation.path)))
+            {
                 throw new UnauthorizedAccessException();
             }
 
@@ -153,20 +181,23 @@ namespace ClothingManager.DAL.EF{
             return store;
         }
 
-        public Store CreateStore(Store store){
+        public Store CreateStore(Store store)
+        {
             store.Id = _context.Stores.Count() + 1;
             _context.Stores.Add(store);
             _context.SaveChanges();
             return store;
         }
 
-        public IEnumerable<ClothingPiece> ReadAllClothingPiecesWithDesigners(){
+        public IEnumerable<ClothingPiece> ReadAllClothingPiecesWithDesigners()
+        {
             return _context.ClothingPieces
                 .Include(cp => cp.Designers)
                 .ThenInclude(cpd => cpd.ContributionOrder);
         }
 
-        public IEnumerable<ClothingPiece> ReadClothingPiecesOfDesigner(int designerId){
+        public IEnumerable<ClothingPiece> ReadClothingPiecesOfDesigner(int designerId)
+        {
             return _context.Designers
                 .Include(d => d.ClothingPieces)
                 .ThenInclude(cpd => cpd.ClothingPiece)
@@ -176,7 +207,8 @@ namespace ClothingManager.DAL.EF{
                 .Select(cpd => cpd.ClothingPiece);
         }
 
-        public IEnumerable<Designer> ReadDesignersOfClothingPiece(int clothingPieceId){
+        public IEnumerable<Designer> ReadDesignersOfClothingPiece(int clothingPieceId)
+        {
             return _context.ClothingPieces
                 .Include(cp => cp.Designers)
                 .ThenInclude(cpd => cpd.Designer)
@@ -186,7 +218,8 @@ namespace ClothingManager.DAL.EF{
                 .Select(cpd => cpd.Designer);
         }
 
-        public IEnumerable<Designer> ReadAvailableDesignersOfClothingPiece(int clothingPieceId){
+        public IEnumerable<Designer> ReadAvailableDesignersOfClothingPiece(int clothingPieceId)
+        {
             return _context.Designers
                 .Except(
                     _context.ClothingPieceDesigners
@@ -198,13 +231,15 @@ namespace ClothingManager.DAL.EF{
                 );
         }
 
-        public ClothingPieceDesigner CreateClothingPieceDesigner(ClothingPieceDesigner clothingPieceDesigner){
+        public ClothingPieceDesigner CreateClothingPieceDesigner(ClothingPieceDesigner clothingPieceDesigner)
+        {
             _context.ClothingPieceDesigners.Add(clothingPieceDesigner);
             _context.SaveChanges();
             return clothingPieceDesigner;
         }
 
-        public void DeleteClothingPieceDesigner(int clothingPieceId, int designerId){
+        public void DeleteClothingPieceDesigner(int clothingPieceId, int designerId)
+        {
             _context.ClothingPieceDesigners.Remove(
                 _context.ClothingPieceDesigners
                     .Where(cpd => cpd.ClothingPiece.Id == clothingPieceId)
@@ -212,9 +247,9 @@ namespace ClothingManager.DAL.EF{
             _context.SaveChanges();
         }
 
-        public Designer DeleteDesigner(Designer designer)
+        public Designer DeleteDesigner(int designerId)
         {
-            var entity = _context.Designers.Remove(designer).Entity;
+            var entity = _context.Designers.Find(designerId);
             _context.SaveChanges();
             return entity;
         }
@@ -225,12 +260,13 @@ namespace ClothingManager.DAL.EF{
             {
                 return new List<Designer>();
             }
+
             return _context.Designers.Where(x => x.Nationality.ToLower() == nationality.ToLower()).ToList();
         }
 
-        public ClothingPiece DeleteClothingPiece(ClothingPiece clothingPiece)
+        public ClothingPiece DeleteClothingPiece(int clothingPieceId)
         {
-            var entity = _context.ClothingPieces.Remove(clothingPiece).Entity;
+            var entity = _context.ClothingPieces.Find(clothingPieceId);
             _context.SaveChanges();
             return entity;
         }

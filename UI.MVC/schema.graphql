@@ -12,7 +12,8 @@ type Query {
 
 type Mutation {
   createDesigner(name: String age: Int! nationality: String): Designer
-  createClothingPiece(price: Float manufactureDate: DateTime! color: String clothingType: ClothingType!): ClothingPiece
+  createClothingPiece(price: Float manufactureDate: DateTime! 
+  color: String clothingType: ClothingType!): ClothingPiece
   removeDesigner(designer: DesignerInput): Designer
   removeClothingPiece(clothingPiece: ClothingPieceInput): ClothingPiece
 }

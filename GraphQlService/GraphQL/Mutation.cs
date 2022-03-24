@@ -34,13 +34,13 @@ public ClothingPiece CreateClothingPiece([Service] IRepository repository, doubl
     }
     
 
-    public Designer RemoveDesigner([Service] IRepository repository, Designer designer)
+    public Designer RemoveDesigner([Service] IRepository repository, int designerId)
     {
-        return repository.DeleteDesigner(designer);
+        return repository.DeleteDesigner(designerId);
     }
 
-    public ClothingPiece RemoveClothingPiece([Service] IRepository repository, ClothingPiece clothingPiece)
+    public ClothingPiece RemoveClothingPiece([Service] IRepository repository, int clothingPieceId)
     {
-        return repository.DeleteClothingPiece(clothingPiece);
+        return repository.DeleteClothingPiece(clothingPieceId);
     }
 }

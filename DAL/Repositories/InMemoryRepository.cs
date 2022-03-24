@@ -219,12 +219,12 @@ namespace ClothingManager.DAL{
             throw new NotImplementedException();
         }
 
-        public ClothingPiece DeleteClothingPiece(ClothingPiece clothingPiece)
+        public ClothingPiece DeleteClothingPiece(int clothingPieceId)
         {
             throw new NotImplementedException();
         }
 
-        public Designer DeleteDesigner(Designer designer)
+        public Designer DeleteDesigner(int designerId)
         {
             throw new NotImplementedException();
         }

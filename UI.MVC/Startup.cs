@@ -1,5 +1,4 @@
 using System;
-using System.Net.Http;
 using ClothingManager.BL;
 using ClothingManager.DAL;
 using ClothingManager.DAL.EF;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using UI.MVC.GraphQL;
 
 namespace ClothingManager.UI.MVC
 {
@@ -29,9 +27,9 @@ namespace ClothingManager.UI.MVC
             services.AddDbContext<ClothingManagerDbContext>(ServiceLifetime.Scoped);
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IManager, Manager>();
+            
             services.AddControllersWithViews();
             services.AddGraphqlClient();
-
             services.AddHttpClient("rest", x => x.BaseAddress = new Uri("https://localhost:5002/"));
             services.AddHttpClient("GraphqlClient")
                 .ConfigureHttpClient(x => x.BaseAddress = new Uri("https://localhost:5002/graphql"));

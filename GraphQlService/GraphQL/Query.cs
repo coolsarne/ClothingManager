@@ -12,7 +12,6 @@ public class Query
     {
         return repository.ReadDesigner(id);
     }
-
     
     public List<Designer> GetDesigners([Service] IRepository repository,string nationality = null)
     {
@@ -29,5 +28,10 @@ public class Query
     {
         return repository.ReadAllClothingPieces().ToList();
     }
-    
+
+    public List<Designer> FilterByNationality([Service] IRepository repository, string nationality)
+    {
+        return repository.FilterByNationality(nationality);
+    }
+
 }

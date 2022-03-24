@@ -46,8 +46,8 @@ namespace ClothingManager.DAL{
         public ClothingPieceDesigner CreateClothingPieceDesigner(ClothingPieceDesigner clothingPieceDesigner);
         public void DeleteClothingPieceDesigner(int clothingPieceId, int designerId);
         
-        public ClothingPiece DeleteClothingPiece(ClothingPiece clothingPiece);
-        public Designer DeleteDesigner(Designer designer);
+        public ClothingPiece DeleteClothingPiece(int clothingPieceId);
+        public Designer DeleteDesigner(int designerId);
         public List<Designer> FilterByNationality(string nationality);
 
 
