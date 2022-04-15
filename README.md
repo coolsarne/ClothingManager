@@ -1,7 +1,6 @@
 # Project .NET Framework
 
 * Naam: Arne Cools
-* Studentennummer: 0145205-93
 * Academiejaar: 21-22
 * Klasgroep: INF203B
 * Onderwerp: Clothing Manager
